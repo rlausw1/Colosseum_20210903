@@ -2,6 +2,7 @@ package com.nepplus.colosseum_20210903
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.nepplus.colosseum_20210903.utils.ServerUtil
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,10 +13,16 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
-        TODO("Not yet implemented")
+
+
+
+
     }
 
     override fun setValues() {
-        TODO("Not yet implemented")
+
+
+
+
     }
 }
