@@ -1,6 +1,9 @@
 package com.nepplus.colosseum_20210903.utils
 
 import android.app.DownloadManager
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 class ServerUtil {
 
@@ -20,7 +23,7 @@ class ServerUtil {
 
         fun postRequestSignIn( id : String, pw : String ) {
 
-//            1. 어디로 갈것인가?
+//            1. 어디로(url) 갈것인가? HOST_URL + Endpoint
 //
             val urlString = "${HOST_URL}/user"
 
@@ -33,11 +36,11 @@ class ServerUtil {
 
 
 
-
 //                    3. 어떤 방식 접근? ㄱㄷ볃
 //            모두 모아서 하나의 request 정보로 만들어주자
 
-            val request = Request.Builder()
+            val request = Request
+                .Builder()
                 .url(urlString)
                 .post(formData)
                 .build()
@@ -46,9 +49,19 @@ class ServerUtil {
 //            요청을 한다 -> 클라이언트의 역할 ->앱이 클라이언트로 동작
 
             val client = OkHttpClient()
-
-
             client.newCall(request)
+
+//만들어진 요청 호출 => 응답이 왔을떄 분석 / UI 반영
+//            호출을 하면 -> 응답 받아서 처리 ( 처리할 코드 등록)
+
+
+
+
+
+
+
+
+            })
 
 
 
