@@ -31,6 +31,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/titleTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -50,6 +51,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/firstSideTitleTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
@@ -57,11 +59,13 @@
                         android:text="선택 진영1" />
 
                     <TextView
+                        android:id="@+id/firstSideVoteCountTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="득표수1"
                         android:textColor="@color/white"/>
                     <Button
+                        android:id="@+id/voteToFirstsideBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="투표하기" />
@@ -86,6 +90,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/secondSideTitleTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
@@ -93,11 +98,13 @@
                         android:text="선택 진영2" />
 
                     <TextView
+                        android:id="@+id/secondSideVoteCountTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="득표수1"
                         android:textColor="@color/white"/>
                     <Button
+                        android:id="@+id/voteToSecondsideBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="투표하기" />
