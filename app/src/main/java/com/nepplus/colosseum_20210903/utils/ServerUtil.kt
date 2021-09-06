@@ -10,9 +10,9 @@ class ServerUtil {
 
 //    단순 기능 수행 -> 서버에 요청을 날리고 -> 응답을 화면에 전달
 
-//    응답을 화면에 전달 : 나에게 발생한 이벤트를 -> 화면단에게 대신 해달라고 한다 (Interface 활용)
+    //    응답을 화면에 전달 : 나에게 발생한 이벤트를 -> 화면단에게 대신 해달라고 한다 (Interface 활용)
     interface JsonResponseHandler {
-        fun onResponse( jsonObject: JSONObject )
+        fun onResponse(jsonObject: JSONObject)
     }
 
 //    어떤 객체가 하던, 요청/응답 처리만 잘 되면 그만
@@ -29,7 +29,7 @@ class ServerUtil {
 //        로그인 기능 실행 함수
 //        아이디/비번 전달 + 서버에 다녀오면 어떤 일을 할지? 인터페이스 객체 전달
 
-        fun postRequestSignIn(id: String, pw: String, handler : JsonResponseHandler?) {
+        fun postRequestSignIn(id: String, pw: String, handler: JsonResponseHandler?) {
 
 //            1. 어디로(url) 갈것인가? HOST_URL + Endpoint
 //
@@ -59,7 +59,7 @@ class ServerUtil {
 
 //만들어진 요청 호출 => 응답이 왔을떄 분석 / UI 반영
 //            호출을 하면 -> 응답 받아서 처리 ( 처리할 코드 등록)
-            client.newCall(request).enqueue(object  : Callback {
+            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
 
 //                    실패? 서버 연결 자체를 실패 응답 X
@@ -97,47 +97,48 @@ class ServerUtil {
             })
 
 
+        }
 
+        //        회원가입 실행 함수
+        fun putRequestSignUp(
+            email: String,
+            password: String,
+            nickname: String,
+            handler: JsonResponseHandler?
+        ) {
+
+            val urlString = "${HOST_URL}/user"
+            val formData = FormBody.Builder()
+                .add("email", email)
+                .add("password", password)
+                .add("nick_name", nickname)
+                .build()
+
+            val request = Request.Builder()
+                .url(urlString)
+                .put(formData)
+                .build()
+
+            val client = OkHttpClient()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d(" 서버응답본문", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+                }
+
+            })
+
+
+        }
 
 
     }
-
-//        회원가입 실행 함수
-        fun putRequestSignUp(email: String, password: String, nickname : String, handler: JsonResponseHandler?) {
-
-            val urlString = "${HOST_URL}/user"
-    val formData = FormBody.Builder()
-        .add("email", email)
-        .add("password", password)
-        .add("nick_name", nickname)
-        .build()
-
-    val request = Request.Builder()
-        .url(urlString)
-        .put(formData)
-        .build()
-
-    val client = OkHttpClient()
-    client.newCall(request).enqueue(object : Callback {
-        override fun onFailure(call: Call, e: IOException) {
-        }
-
-
-        override fun onResponse(call: Call, response: Response) {
-            val bodyString = response.body!!.string()
-            val jsonObj = JSONObject(bodyString)
-            Log.d(" 서버응답본문", jsonObj.toString())
-            handler?.onResponse(jsonObj)
-        }
-
-    })
-
-
-
-        }
-
-
-}
 
 
 }
