@@ -29,7 +29,7 @@ class ServerUtil {
 //        로그인 기능 실행 함수
 //        아이디/비번 전달 + 서버에 다녀오면 어떤 일을 할지? 인터페이스 객체 전달
 
-        fun postRequestSignIn(id: String, pw: String, handler : JsonResponseHandler) {
+        fun postRequestSignIn(id: String, pw: String, handler : JsonResponseHandler?) {
 
 //            1. 어디로(url) 갈것인가? HOST_URL + Endpoint
 //
@@ -101,6 +101,40 @@ class ServerUtil {
 
 
     }
+
+//        회원가입 실행 함수
+        fun putRequestSignUp(email: String, password: String, nickname : String, handler: JsonResponseHandler?) {
+
+            val urlString = "${HOST_URL}/user"
+    val formData = FormBody.Builder()
+        .add("email", email)
+        .add("password", password)
+        .add("nick_name", nickname)
+        .build()
+
+    val request = Request.Builder()
+        .url(urlString)
+        .put(formData)
+        .build()
+
+    val client = OkHttpClient()
+    client.newCall(request).enqueue(object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+        }
+
+
+        override fun onResponse(call: Call, response: Response) {
+            val bodyString = response.body!!.string()
+            val jsonObj = JSONObject(bodyString)
+            Log.d(" 서버응답본문", jsonObj.toString())
+            handler?.onResponse(jsonObj)
+        }
+
+    })
+
+
+
+        }
 
 
 }
