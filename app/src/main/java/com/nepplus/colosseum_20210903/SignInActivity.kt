@@ -74,28 +74,34 @@ class SignInActivity : BaseActivity() {
 //                            Toast.makeText(mContext, "${nickname}님 환영합니다", Toast.LENGTH_SHORT).show()
 //                        }
 
-// 메인화면으로 이동 + 로그인화면 종료
-                        val myIntent = Intent(mContext, MainActivity :: class.java)
+
+//                      서버가 내려주는 토큰값을 기기에 저장 (ContextUtil 활용)
+                        //                      data { } 내부에 토큰값이 내려옴
+
+                        val dataObj = jsonObj.getJSONObject("data")
+                        val token = dataObj.getString("token")
+                        ContextUtil.setToken(mContext, token)
+
+
+//                      메인화면으로 이동 + 로그인화면 종료
+                        val myIntent = Intent(mContext, MainActivity::class.java)
                         startActivity(myIntent)
                         finish()
-                    }
-                    else {
+                    } else {
 //                        코드가 200이 아니다 - 무조건 실패로 간주
 //                        1. 우선 토스트를 "로그인 실패"로 띄어보자
 //    백그라운드에서 서버통신 중 -> UI에 토스트를 띄운다 -> 다른 쓰레디가 UI 조작 ( 위험요소)
 
-    //2. 서버가 알려주는 로그인 실패사유도 파싱. 토스트의 내용을 띄어주지
+                        //2. 서버가 알려주는 로그인 실패사유도 파싱. 토스트의 내용을 띄어주지
 
-        val message = jsonObj.getString("message")
+                        val message = jsonObj.getString("message")
 
                         runOnUiThread {
 //                            UI조작은, UI쓰레드에게 일을 따로 맡겨주자
 
-                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
                         }
                     }
-
-
 
 
                 }
@@ -103,11 +109,7 @@ class SignInActivity : BaseActivity() {
             })
 
 
-
-
         }
-
-
 
 
     }
@@ -116,8 +118,6 @@ class SignInActivity : BaseActivity() {
 
 //        저장된 자동 로그인 여부를 받아내서 => 자동로그인 체크박스에 반영
         autoLoginCheckBox.isChecked = ContextUtil.getAutoLogIn(mContext)
-
-
 
 
     }
