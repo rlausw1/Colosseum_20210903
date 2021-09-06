@@ -1,6 +1,7 @@
 package com.nepplus.colosseum_20210903.utils
 
 import android.app.DownloadManager
+import android.content.Context
 import android.util.Log
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -100,12 +101,9 @@ class ServerUtil {
 
         }
 
-        //        회원가입 실행 함수
+        //회원가입 실행 함수
         fun putRequestSignUp(
-            email: String,
-            password: String,
-            nickname: String,
-            handler: JsonResponseHandler?
+            email: String, password: String, nickname: String, handler: JsonResponseHandler?
         ) {
 
             val urlString = "${HOST_URL}/user"
@@ -138,8 +136,8 @@ class ServerUtil {
 
         }
 
-
-        fun getRequestDuplCheck(type : String, value : String, handler: JsonResponseHandler?) {
+        //      이메일/닉네임 중복 확인 함수
+        fun getRequestDuplCheck(type: String, value: String, handler: JsonResponseHandler?) {
 
 //            get메쏘드로 서버에 요청 -> URL을 적을때, (쿼리)파라미터들도 같이 적어줘야 한다.
 //            어디로 + 무엇을 들고 => 한번에 작성됨
@@ -163,6 +161,45 @@ class ServerUtil {
                 override fun onFailure(call: Call, e: IOException) {
 
 
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+
+
+                }
+
+            })
+
+
+        }
+
+
+
+        fun getRequestMainData(context: Context, handler: JsonResponseHandler?) {
+
+            val url = "${HOST_URL}/v2/main_info".toHttpUrlOrNull()!!.newBuilder()
+
+//            url.addEncodedQueryParameter("type", type)
+//            url.addEncodedQueryParameter("value", value)
+
+            val urlString = url.toString()
+            Log.d("완성된URL", urlString)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
 
                 }
 
@@ -179,16 +216,10 @@ class ServerUtil {
             })
 
 
-
         }
 
 
-
-
     }
-
-
-
 
 
 }
