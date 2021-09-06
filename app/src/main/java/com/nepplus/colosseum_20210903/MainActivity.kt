@@ -52,12 +52,16 @@ class MainActivity : BaseActivity() {
                     else {
 //                        코드가 200이 아니다 - 무조건 실패로 간주
 //                        1. 우선 토스트를 "로그인 실패"로 띄어보자
-//    2. 백글운드에서 서버통신 중 -> UI에 토스트를 띄운다 -> 다른 쓰레디가 UI 조작 ( 위험요소)
+//    백그라운드에서 서버통신 중 -> UI에 토스트를 띄운다 -> 다른 쓰레디가 UI 조작 ( 위험요소)
+
+    //2. 서버가 알려주는 로그인 실패사유도 파싱. 토스트의 내용을 띄어주지
+
+        val message = jsonObj.getString("message")
 
                         runOnUiThread {
 //                            UI조작은, UI쓰레드에게 일을 따로 맡겨주자
 
-                        Toast.makeText(mContext, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
                         }
                     }
 
