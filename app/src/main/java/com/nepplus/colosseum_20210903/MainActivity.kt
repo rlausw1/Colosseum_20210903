@@ -3,6 +3,7 @@ package com.nepplus.colosseum_20210903
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.nepplus.colosseum_20210903.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -31,7 +32,37 @@ class MainActivity : BaseActivity() {
 
 //                    서버가 보내준 jsonObj를 가지고 처리하는 코드 작성 영역
 
-Log.d("화면에서받은JSON", jsonObj.toString())
+//Log.d("화면에서받은JSON", jsonObj.toString())
+
+//                    code 이름표가 붙은 Int값 추출
+
+                    val code = jsonObj.getInt("code")
+
+//                    원하는 의도대로 잘 동작 ( ex. 로그인 성공) => code : 200
+//                    어떤 이유든 에러가 있다 : code : 200이 아닌값
+
+                    if (code == 200) {
+//                        정상 작동한 경우 : 로그인 성공
+//                        그 뒤의 행동? 시나리오 대로 작성
+//                        임시 시나리오 : 로그인한 사람의 닉네임을 토스트로
+//                        "~~님 환영합니다!"
+
+
+                    }
+                    else {
+//                        코드가 200이 아니다 - 무조건 실패로 간주
+//                        1. 우선 토스트를 "로그인 실패"로 띄어보자
+//    2. 백글운드에서 서버통신 중 -> UI에 토스트를 띄운다 -> 다른 쓰레디가 UI 조작 ( 위험요소)
+
+                        runOnUiThread {
+//                            UI조작은, UI쓰레드에게 일을 따로 맡겨주자
+
+                        Toast.makeText(mContext, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+
+
 
                 }
 
