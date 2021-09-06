@@ -1,5 +1,6 @@
 package com.nepplus.colosseum_20210903
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.nepplus.colosseum_20210903.adapters.TopicAdapter
@@ -23,6 +24,16 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        topicListView.setOnItemClickListener { adapterView, view, position, l ->
+
+            val clickedTopic = mTopicList[position]
+            val myIntent = Intent (mContext, ViewTopicDetailActivity::class.java)
+            myIntent.putExtra("topic", clickedTopic)
+            startActivity(myIntent)
+
+
+        }
     }
 
     override fun setValues() {
