@@ -52,18 +52,21 @@ class SignInActivity : BaseActivity() {
 //                        "~~님 환영합니다!"
 
 //                        "data" 이름의 {  } 변수로 닫자
-                        val dataObj = jsonObj.getJSONObject("data")
+//                        val dataObj = jsonObj.getJSONObject("data")
+//
+////                      data: {}안에서 , user:{}를 변수에 담자
+//
+//                        val userObj = dataObj.getJSONObject("user")
+//                        val nickname = userObj.getString("nick_name")
+//
+//                        runOnUiThread {
+//                            Toast.makeText(mContext, "${nickname}님 환영합니다", Toast.LENGTH_SHORT).show()
+//                        }
 
-//                      data: {}안에서 , user:{}를 변수에 담자
-
-                        val userObj = dataObj.getJSONObject("user")
-                        val nickname = userObj.getString("nick_name")
-
-                        runOnUiThread {
-                            Toast.makeText(mContext, "${nickname}님 환영합니다", Toast.LENGTH_SHORT).show()
-                        }
-
-
+// 메인화면으로 이동 + 로그인화면 종료
+                        val myIntent = Intent(mContext, MainActivity :: class.java)
+                        startActivity(myIntent)
+                        finish()
                     }
                     else {
 //                        코드가 200이 아니다 - 무조건 실패로 간주
