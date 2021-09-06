@@ -3,6 +3,7 @@ package com.nepplus.colosseum_20210903.utils
 import android.app.DownloadManager
 import android.util.Log
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -138,7 +139,29 @@ class ServerUtil {
         }
 
 
+        fun getRequestDuplCheck(type : String, value : String, handler: JsonResponseHandler?) {
+
+//            get메쏘드로 서버에 요청 -> URL을 적을때, (쿼리)파라미터들도 같이 적어줘야 한다.
+//            어디로 + 무엇을 들고 => 한번에 작성됨
+
+//            호스트주소 / 앤드포인트 기반으로 , 파라미터들을 쉽게 첨부할 수 있도록 도와주는 변수
+            val url = "${HOST_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
+//            기본 url 뒤에 , 파라미터를 첨부.
+            url.addEncodedQueryParameter("type", type)
+            url.addEncodedQueryParameter("value", value)
+
+            val urlString = url.toString()
+            Log.d("완성된URL", urlString)
+
+        }
+
+
+
+
     }
+
+
+
 
 
 }
