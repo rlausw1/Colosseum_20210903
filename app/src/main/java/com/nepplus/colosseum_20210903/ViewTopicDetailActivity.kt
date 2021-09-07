@@ -19,6 +19,7 @@ import org.json.JSONObject
 class ViewTopicDetailActivity : BaseActivity() {
 
     lateinit var mTopicData: TopicData
+
     val mReplyList = ArrayList<ReplyData>()
     lateinit var mReplyAdapter: ReplyAdapter
 
@@ -32,7 +33,9 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+
         addReplyBtn.setOnClickListener {
+
 
 //            투표를 해야만 댓글 작성화면으로 이동 시키자
 //            선택한 진영이 없다면, myIntent 관련 코드 실행x => validation 입력값 검증 작업
@@ -43,7 +46,7 @@ class ViewTopicDetailActivity : BaseActivity() {
             }
 
             val myIntent = Intent(mContext, EditReplyActivity:: class.java)
-            myIntent.putExtra("selecteSide",mTopicData.mySelectedSide)
+            myIntent.putExtra("selectedSide",mTopicData.mySelectedSide)
             startActivity(myIntent)
 
 
@@ -54,7 +57,7 @@ class ViewTopicDetailActivity : BaseActivity() {
 
 //        버튼이 눌리면 할 일을 적어두는 변수 (Interface변수)
 
-        val ocl = object  : View.OnClickListener {
+        val ocl = object : View.OnClickListener {
             override fun onClick(view: View?) {
 
 //                버튼이 눌리면 할 일
@@ -69,6 +72,8 @@ class ViewTopicDetailActivity : BaseActivity() {
 
                 ServerUtil.postRequestTopicVote(mContext, clickedSideId, object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(jsonObject: JSONObject) {
+
+
 
 //                        투표 결과 확인 => 새로 투표현황을 다시 받아오자
 //                        이전에 함수로 분리해둔, 서버에서 상세정보 받아오기 호출

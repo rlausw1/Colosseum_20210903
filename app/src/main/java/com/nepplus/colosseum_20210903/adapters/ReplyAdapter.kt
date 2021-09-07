@@ -48,7 +48,7 @@ class ReplyAdapter(
 
         writerNicknameTxt.text = data.writer.nickname
 
-        val sdf = SimpleDateFormat("yyyy년 M월 d일")
+
         createdAtTxt.text = data.getFormattedTimeAgo()
 
 

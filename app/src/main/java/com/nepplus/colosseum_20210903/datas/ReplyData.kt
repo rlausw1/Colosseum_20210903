@@ -12,14 +12,15 @@ class ReplyData(
     var hateCount: Int,
     var myLike: Boolean,
     var myHate: Boolean,
-    var replyCount: Int) {
+    var replyCount: Int
+) {
 
-//    replyData 하위개념
-    lateinit var selectedSide : SideData
+    //    replyData 하위개념
+    lateinit var selectedSide: SideData
 
 //    이 댓글을 적은 사람
 
-    lateinit var writer : UserData
+    lateinit var writer: UserData
 
 //    이 댓글이 적힌 시점(날짜+시간) -> calendar 클래스 활용
 //    simpleDataFormat을 이용하면 => 다양한 양식으로 가공 가능
@@ -39,43 +40,37 @@ class ReplyData(
 
         Log.d("두 시간의 간격", interval.toString())
 
-        if (interval <1000) {
+        if (interval < 1000) {
 //            간격 : 밀리초까지 계산. (1/1000)
 //            1초도 안된다 => 방금 전 으로 결과
             return "방금 전"
-       }
-        else if (interval < 1*60*1000) {
+        } else if (interval < 1 * 60 * 1000) {
 //            1분이내 => ?초전
             return "${interval / 1000}초 전"
 
-        }
-        else if (interval < 1*60*60*1000 ) {
+        } else if (interval < 1 * 60 * 60 * 1000) {
 
 //            1시간 이내 -> 몇 분전
-            return "${interval /1000 / 60}분 전"
-        }
-        else if (interval < 24*60*60*1000 ) {
+            return "${interval / 1000 / 60}분 전"
+        } else if (interval < 24 * 60 * 60 * 1000) {
 
 //            24시간 이내 -> 몇 시간 전
-            return "${interval /1000 /60/60}시간 전"
-        }
-        else if (interval < 5*24*60*60*1000 ) {
+            return "${interval / 1000 / 60 / 60}시간 전"
+        } else if (interval < 5 * 24 * 60 * 60 * 1000) {
 
 //            5일 이내 -> 몇 일전
-            return "${interval /1000 / 60 /60/24}분 전"
-        }
-        else {
-            val replyDisplayFormat = SimpleDateFormat("yyyy년 M월 d일일")
+            return "${interval / 1000 / 60 / 60 / 24}분 전"
+        } else {
+            val replyDisplayFormat = SimpleDateFormat("yyyy년 M월 d일")
             return replyDisplayFormat.format(this.createdAt.time)
         }
 
     }
 
 
+    companion object {
 
-   companion object {
-
-//        서버가 주는 날짜 양식을 분석하기 위한 SimpleDataFormat
+        //        서버가 주는 날짜 양식을 분석하기 위한 SimpleDataFormat
         val serverFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
         //        JSON을 넣으면 -> ReplyData로 변환해주는 기능
@@ -90,14 +85,14 @@ class ReplyData(
             replyData.myHate = json.getBoolean("my_dislike")
             replyData.replyCount = json.getInt("reply_count")
 
-//            선택진영 파싱 -> SideDat에 만둘어둔 파싱 기능 활용
+//            선택진영 파싱 -> SideData에 만둘어둔 파싱 기능 활용
 
             val selectedSideObj = json.getJSONObject("selected_side")
             replyData.selectedSide = SideData.getSideDataFromJson(selectedSideObj)
 
 //            작성자 정보 파싱 -> UserData의 기능 활용
             val userObj = json.getJSONObject("user")
-            replyData.writer = UserData.getUserDataFromJson( userObj)
+            replyData.writer = UserData.getUserDataFromJson(userObj)
 
 //          작성일시 -> String으로 받아서 - Calendar로 변환해서 저장
             val createdAtString = json.getString("created_at")
@@ -105,15 +100,12 @@ class ReplyData(
 //            댓글 데이터의 작성일시에, serverFormat 변수를 이용해서 시간 저장
             replyData.createdAt.time = serverFormat.parse(createdAtString)
 
-            data.getFormattedTimeAgo()
-
-
-
 
 
             return replyData
         }
 
     }
+
 
 }

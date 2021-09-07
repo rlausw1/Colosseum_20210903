@@ -14,7 +14,7 @@ class SideData(
     constructor() : this(0, 0, "미정", 0)
     companion object {
 
-//        json을 넣으면
+//        json을 넣으면 sideData로 변환해주는 기능
 
         fun getSideDataFromJson(json : JSONObject) : SideData {
 

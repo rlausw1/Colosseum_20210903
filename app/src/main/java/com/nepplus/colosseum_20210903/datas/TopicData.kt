@@ -57,8 +57,12 @@ class TopicData(
             topicData.mySideId = json.getInt("my_side_id")
 
 //            그 진영이 어떤건지? mull로 내려오면 파싱x
-            if(json.isNull("my_side")) {
+            if(json.isNull("my_side"))
 
+            {
+//                null 이 아닐떄만 파실
+//
+//
                 topicData.mySelectedSide = SideData.getSideDataFromJson( json.getJSONObject("my_side"))
             }
 
@@ -77,6 +81,10 @@ class TopicData(
 
     //    보조생성자 추가.
     constructor() : this(0, "제목 없음", "")
+
+    //    연습. id값만 받는 보조 생성자.
+    constructor(id: Int) : this(id, "제목없음", "")
+
 
 
 }
