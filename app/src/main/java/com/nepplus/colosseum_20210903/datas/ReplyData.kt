@@ -1,5 +1,6 @@
 package com.nepplus.colosseum_20210903.datas
 
+import android.util.Log
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,7 +28,52 @@ class ReplyData(
 
     constructor() : this(0, "", 0, 0, false, false, 0)
 
-    companion object {
+    //    각 댓글마다의 기능 : 작성된 일시를 보고 -> ~분전,~일전,~시간전 등으로 가공
+//    5일 이상 : yyyy년 M월 d일 로 가공
+
+    fun getFormattedTimeAgo {
+
+        //    지금으로부터, 얼마나 이전에 작성된 글인가? 두 일시의 텀 계산
+        val now = Calendar.getInstance()
+        val interval = now.timeInMillis - this.createdAt.timeInMillis
+
+        Log.d("두 시간의 간격", interval.toString())
+
+        if (interval <1000) {
+//            간격 : 밀리초까지 계산. (1/1000)
+//            1초도 안된다 => 방금 전 으로 결과
+            return "방금 전"
+       }
+        else if (interval < 1*60*1000) {
+//            1분이내 => ?초전
+            return "${interval / 1000}초 전"
+
+        }
+        else if (interval < 1*60*60*1000 ) {
+
+//            1시간 이내 -> 몇 분전
+            return "${interval /1000 / 60}분 전"
+        }
+        else if (interval < 24*60*60*1000 ) {
+
+//            24시간 이내 -> 몇 시간 전
+            return "${interval /1000 /60/60}시간 전"
+        }
+        else if (interval < 5*24*60*60*1000 ) {
+
+//            5일 이내 -> 몇 일전
+            return "${interval /1000 / 60 /60/24}분 전"
+        }
+        else {
+            val replyDisplayFormat = SimpleDateFormat("yyyy년 M월 d일일")
+            return replyDisplayFormat.format(this.createdAt.time)
+        }
+
+    }
+
+
+
+   companion object {
 
 //        서버가 주는 날짜 양식을 분석하기 위한 SimpleDataFormat
         val serverFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -51,13 +97,16 @@ class ReplyData(
 
 //            작성자 정보 파싱 -> UserData의 기능 활용
             val userObj = json.getJSONObject("user")
-            replyData.writer = UserData.getUserDataFromJson(userObj)
+            replyData.writer = UserData.getUserDataFromJson( userObj)
 
 //          작성일시 -> String으로 받아서 - Calendar로 변환해서 저장
             val createdAtString = json.getString("created_at")
 
 //            댓글 데이터의 작성일시에, serverFormat 변수를 이용해서 시간 저장
             replyData.createdAt.time = serverFormat.parse(createdAtString)
+
+            data.getFormattedTimeAgo()
+
 
 
 

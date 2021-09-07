@@ -20,6 +20,8 @@ class ViewTopicDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_topic_detail)
+        setupEvents()
+        setValues()
     }
 
     override fun setupEvents() {
@@ -48,9 +50,9 @@ class ViewTopicDetailActivity : BaseActivity() {
     fun getTopicDetailDataFromServer() {
 
     ServerUtil.getRequestTopicDetail(mContext, mTopicData.id, object : ServerUtil.JsonResponseHandler {
-        override fun onResponse(jsonObject: JSONObject) {
+        override fun onResponse(jsonObj: JSONObject) {
 
-            val dataObj = jsonObject.getJSONObject("data")
+            val dataObj = jsonObj.getJSONObject("data")
             val topicObj = dataObj.getJSONObject("topic")
 
 
