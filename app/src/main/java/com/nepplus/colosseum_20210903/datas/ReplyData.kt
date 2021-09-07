@@ -31,7 +31,7 @@ class ReplyData(
     //    각 댓글마다의 기능 : 작성된 일시를 보고 -> ~분전,~일전,~시간전 등으로 가공
 //    5일 이상 : yyyy년 M월 d일 로 가공
 
-    fun getFormattedTimeAgo {
+    fun getFormattedTimeAgo() : String {
 
         //    지금으로부터, 얼마나 이전에 작성된 글인가? 두 일시의 텀 계산
         val now = Calendar.getInstance()
