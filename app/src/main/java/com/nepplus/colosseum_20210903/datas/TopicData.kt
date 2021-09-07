@@ -1,5 +1,6 @@
 package com.nepplus.colosseum_20210903.datas
 
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.Serializable
 
@@ -25,6 +26,25 @@ class TopicData(
             topicData.id = json.getInt("id")
             topicData.title = json.getString("title")
             topicData.imageURL = json.getString("img_url")
+
+//           토론의 하위정보로 => sides라는 JSONArray를 내려줌
+//            JSONArray ; FOR문을 돌려서 파싱 -> TopicData의 SIDElIST에 추가
+
+            val sidesArr = json.getJSONArray("sides")
+
+            for ( i in 0 until sidesArr.length()) {
+
+                val sideObj = sidesArr.getJSONObject(i)
+
+                //                JSONObject -> SideData() 로 변환.
+
+                val sideData = SideData.getSideDataFromJson(sideObj)
+
+
+//                topicData의 sideList에 추가해주기
+                topicData.sideList.add(sideData)
+
+            }
 
 
 //            최종 결과 선정
