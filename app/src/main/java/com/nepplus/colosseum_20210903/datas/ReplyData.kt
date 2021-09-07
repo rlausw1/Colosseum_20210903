@@ -21,9 +21,9 @@ class ReplyData(
     lateinit var writer : UserData
 
 //    이 댓글이 적힌 시점(날짜+시간) -> calendar 클래스 활용
-//    simpleDataFromJson
+//    simpleDataFormat을 이용하면 => 다양한 양식으로 가공 가능
 
-    val createdAt = Calendar.getInstance() //일단 현재시간 저장 -> 파싱
+    val createdAt = Calendar.getInstance() //일단 현재시간 저장 -> 파싱을 통해  작성된 시간으로 변경
 
     constructor() : this(0, "", 0, 0, false, false, 0)
 
@@ -53,8 +53,11 @@ class ReplyData(
             val userObj = json.getJSONObject("user")
             replyData.writer = UserData.getUserDataFromJson(userObj)
 
-//
+//          작성일시 -> String으로 받아서 - Calendar로 변환해서 저장
             val createdAtString = json.getString("created_at")
+
+//            댓글 데이터의 작성일시에, serverFormat 변수를 이용해서 시간 저장
+            replyData.createdAt.time = serverFormat.parse(createdAtString)
 
 
 
