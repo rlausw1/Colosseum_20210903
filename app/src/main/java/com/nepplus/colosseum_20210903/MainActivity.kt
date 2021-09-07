@@ -61,10 +61,12 @@ class MainActivity : BaseActivity() {
 
 //                    topicData를 만들어서 -> 멤ㅂ변수들에 -> topicObj에서 파싱한 데이터를 대입
 
-                    val tempTopicData = TopicData()
-                    tempTopicData.id = topicObj.getInt("id")
-                    tempTopicData.title = topicObj.getString("title")
-                    tempTopicData.imageURL= topicObj.getString("img_url")
+//                    val tempTopicData = TopicData()
+//                    tempTopicData.id = topicObj.getInt("id")
+//                    tempTopicData.title = topicObj.getString("title")
+//                    tempTopicData.imageURL= topicObj.getString("img_url")
+
+                    val tempTopicData = TopicData.getTopicDataFromJson(topicObj)
 
 //                    mTopicList에 하나씩 추가
                     mTopicList.add(tempTopicData)
