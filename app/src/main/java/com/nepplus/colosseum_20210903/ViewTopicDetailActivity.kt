@@ -157,8 +157,31 @@ class ViewTopicDetailActivity : BaseActivity() {
             secondSideTitleTxt.text = mTopicData.sideList[1].title
             secondSideVoteCountTxt.text = "${mTopicData.sideList[0].voteCount}표"
 
+//            투표 여부에 따라 버튼들에 다른 문구 적용
+            if (mTopicData.mySideId == -1) {
+                voteToFirstsideBtn.text = "투표하기"
+                voteToSecondsideBtn.text = "투표하기"
+            }
+            else {
+//                내 두표 진영 id가 첫째 진영의 id와 같은지?
+                if(mTopicData.mySideId == mTopicData.sideList[0].id) {
+
+                    voteToFirstsideBtn.text = "취소하기"
+                    voteToSecondsideBtn.text = "선택변경"
+
+                    }
+                else {
+
+                    voteToFirstsideBtn.text = "선택변경"
+                    voteToSecondsideBtn.text = "취소하기"
+
+                }
+            }
+
 //            리스트뷰도 새로고침
             mReplyAdapter.notifyDataSetChanged()
+
+
 
 
 

@@ -13,6 +13,9 @@ class TopicData(
     //    선택진영 목록을 담아줄 ArrayList
     val sideList = ArrayList<SideData>()
 
+//    내가 투표한 진영의 id가 뭔지?
+    var mySideId = 0
+
     companion object {
 
         //        json {}를 넣으면 -> 파싱해서 -> TopicData 객체로 리턴해주는 함수
@@ -45,7 +48,8 @@ class TopicData(
                 topicData.sideList.add(sideData)
 
             }
-
+//내가 선택한 진영의 id?
+            topicData.mySideId = json.getInt("my_side_id")
 
 //            최종 결과 선정
 
