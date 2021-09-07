@@ -45,6 +45,8 @@ class ReplyAdapter(
 
         selectedSideTxt.text = "(${data.selectedSide.title})"
 
+        writerNicknameTxt.text = data.writer.nickname
+
 
 
 

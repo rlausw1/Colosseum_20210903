@@ -14,6 +14,8 @@ class ReplyData(
 //    replyData 하위개념
     lateinit var selectedSide : SideData
 
+    lateinit var writer : UserData
+
     constructor() : this(0, "", 0, 0, false, false, 0)
 
     companion object {
@@ -34,6 +36,11 @@ class ReplyData(
 
             val selectedSideObj = json.getJSONObject("selected_side")
             replyData.selectedSide = SideData.getSideDataFromJson()
+
+//작성자 정보 파싱 -> UserData의 기능 활용
+            val userObj = json.getJSONObject("user")
+            replyData.writer = UserData.getUserDataFromJson()
+
 
 
             return replyData
