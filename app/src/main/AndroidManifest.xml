@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Colosseum_20210903"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".utils.EditReplyActivity"
+            android:name=".EditReplyActivity"
             android:exported="true" />
         <activity
             android:name=".ViewTopicDetailActivity"

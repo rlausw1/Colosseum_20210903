@@ -414,7 +414,7 @@ class ServerUtil {
         // 좋아요 / 싫어요  찍기
         fun postRequestReplylikeOrHate(
             context: Context,
-            replyId: Int
+            replyId: Int,
             isLike: Boolean,
             handler: JsonResponseHandler?
         ) {

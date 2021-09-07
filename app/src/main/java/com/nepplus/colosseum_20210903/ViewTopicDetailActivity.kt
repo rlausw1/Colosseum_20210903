@@ -1,17 +1,14 @@
 package com.nepplus.colosseum_20210903
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.nepplus.colosseum_20210903.adapters.ReplyAdapter
 import com.nepplus.colosseum_20210903.datas.ReplyData
 import com.nepplus.colosseum_20210903.datas.TopicData
-import com.nepplus.colosseum_20210903.utils.EditReplyActivity
 import com.nepplus.colosseum_20210903.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
 import org.json.JSONObject

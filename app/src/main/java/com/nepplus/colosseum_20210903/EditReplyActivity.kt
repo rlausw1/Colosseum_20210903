@@ -1,13 +1,11 @@
-package com.nepplus.colosseum_20210903.utils
+package com.nepplus.colosseum_20210903
 
 import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.nepplus.colosseum_20210903.BaseActivity
-import com.nepplus.colosseum_20210903.R
 import com.nepplus.colosseum_20210903.datas.SideData
+import com.nepplus.colosseum_20210903.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_edit_reply.*
 import org.json.JSONObject
 
@@ -43,18 +41,23 @@ class EditReplyActivity : BaseActivity() {
             alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
 
 
-                ServerUtil.postRequestTopicReply(mContext, mSelectedSide.topicId, inputContent, object : ServerUtil.JsonResponseHandler {
+                ServerUtil.postRequestTopicReply(
+                    mContext,
+                    mSelectedSide.topicId,
+                    inputContent,
+                    object : ServerUtil.JsonResponseHandler {
 
-                    override fun onResponse(jsonObj: JSONObject) {
+                        override fun onResponse(jsonObj: JSONObject) {
 
-                        runOnUiThread {
-                            Toast.makeText(mContext, "의견 등록에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                            finish()
+                            runOnUiThread {
+                                Toast.makeText(mContext, "의견 등록에 성공했습니다.", Toast.LENGTH_SHORT)
+                                    .show()
+                                finish()
+                            }
+
                         }
 
-                    }
-
-                })
+                    })
             })
             alert.setNegativeButton("취소", null)
 
