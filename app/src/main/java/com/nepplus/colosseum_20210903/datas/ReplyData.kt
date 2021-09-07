@@ -12,7 +12,7 @@ class ReplyData(
     var replyCount: Int
 ) {
 
-    constructor() : this(0, "", 0, 0, 0, 0, 0)
+    constructor() : this(0, "", 0, 0, false, false, 0)
 
     companion object {
 
