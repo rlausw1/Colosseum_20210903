@@ -232,7 +232,7 @@ class ServerUtil {
 
 
 
-//            url.addEncodedQueryParameter("type", type)
+            url.addEncodedQueryParameter("order_type", "NEW")
 //            url.addEncodedQueryParameter("value", value)
 
             val urlString = url.toString()
