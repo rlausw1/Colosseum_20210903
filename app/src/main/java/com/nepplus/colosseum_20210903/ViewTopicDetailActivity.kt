@@ -3,6 +3,7 @@ package com.nepplus.colosseum_20210903
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
+import com.nepplus.colosseum_20210903.adapters.ReplyAdapter
 import com.nepplus.colosseum_20210903.datas.ReplyData
 import com.nepplus.colosseum_20210903.datas.TopicData
 import com.nepplus.colosseum_20210903.utils.ServerUtil
@@ -13,6 +14,7 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     lateinit var mTopicData: TopicData
     val mReplyList = ArrayList<ReplyData>()
+    lateinit var mReplyAdapter: ReplyAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,12 +28,18 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     override fun setValues() {
 
+
+
+
         mTopicData = intent.getSerializableExtra("topic") as TopicData
         Glide.with(mContext).load(mTopicData.imageURL).into(topicImg)
         titleTxt.text = mTopicData.title
 
 //        나머지 데이터는 서버에서 가져오자
         getTopicDetailDataFromServer()
+
+        mReplyAdapter = ReplyAdapter(mContext, R.layout.reply_list_item, mReplyList)
+        replyListView.adapter = mReplyAdapter
 
 
     }
@@ -88,6 +96,9 @@ class ViewTopicDetailActivity : BaseActivity() {
 
             secondSideTitleTxt.text = mTopicData.sideList[1].title
             secondSideVoteCountTxt.text = "${mTopicData.sideList[0].voteCount}표"
+
+//            리스트뷰도 새로고침
+            mReplyAdapter.notifyDataSetChanged()
 
 
 
