@@ -3,12 +3,14 @@ package com.nepplus.colosseum_20210903
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.nepplus.colosseum_20210903.adapters.TopicAdapter
 import com.nepplus.colosseum_20210903.datas.TopicData
 import com.nepplus.colosseum_20210903.datas.UserData
 import com.nepplus.colosseum_20210903.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.my_custom_action_bar.*
 import org.json.JSONObject
 
 class MainActivity : BaseActivity() {
@@ -43,6 +45,9 @@ class MainActivity : BaseActivity() {
         getMainDataFromServer()
         mTopicAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
         topicListView.adapter = mTopicAdapter
+
+//        backBtn의 숨김처리 (메인화면에서만)
+        backBtn.visibility = View.GONE
     }
 
 //    서버에서, 메인화면에 보여줄 정보 받아오기
