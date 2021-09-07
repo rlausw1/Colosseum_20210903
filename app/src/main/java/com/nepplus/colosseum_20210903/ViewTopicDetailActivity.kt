@@ -2,6 +2,7 @@ package com.nepplus.colosseum_20210903
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.nepplus.colosseum_20210903.adapters.ReplyAdapter
@@ -38,13 +39,19 @@ class ViewTopicDetailActivity : BaseActivity() {
 //                버튼이 눌리면 할 일
 //                view 눌린게 어떤 버튼인지? 눌린 버튼을 담아준다
 
+                val clickedSideId = view!!.tag.toString().toInt()
+
+                Log.d("투표진영id", clickedSideId.toString())
+
 //                해당 진영에 투표하기 (서버에 투표 기능 실행)
 //                투표를 하고 돌아오면 -> 새로 투표현황 불러오기
 
-                ServerUtil.postRequestTopicVote(mContext, 1, object : ServerUtil.JsonResponseHandler {
+                ServerUtil.postRequestTopicVote(mContext, clickedSideId, object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(jsonObject: JSONObject) {
 
 //                        투표 결과 확인
+
+
 
 
 
@@ -75,6 +82,13 @@ class ViewTopicDetailActivity : BaseActivity() {
 
 
         mTopicData = intent.getSerializableExtra("topic") as TopicData
+
+//        투표 버튼에 각 진영이 어떤 진영인지 "버튼에 메모"해두면 -> 투표할 때, 그 진영이 뭔지 알아 낼 수 있다.
+        voteToFirstsideBtn.tag = mTopicData.sideList[0].id
+        voteToSecondsideBtn.tag = mTopicData.sideList[1].id
+
+
+
         Glide.with(mContext).load(mTopicData.imageURL).into(topicImg)
         titleTxt.text = mTopicData.title
 
