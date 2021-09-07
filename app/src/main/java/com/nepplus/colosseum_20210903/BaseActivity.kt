@@ -3,6 +3,7 @@ package com.nepplus.colosseum_20210903
 import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -50,6 +51,13 @@ abstract class BaseActivity : AppCompatActivity() {
         backBtn.setOnClickListener {
              finish()
         }
+
+        notiBtn.setOnClickListener {
+            Toast.makeText(mContext, "알림목록을 보러 갑니다", Toast.LENGTH_SHORT).show()
+        }
+
+//        모든 화면은 기본적으로 노티버튼을 숨겨두자 => xml에서 visivility
+//        메인화면에서만 보여주기 처리
 
 
     }

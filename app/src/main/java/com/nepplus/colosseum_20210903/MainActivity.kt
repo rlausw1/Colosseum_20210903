@@ -48,6 +48,9 @@ class MainActivity : BaseActivity() {
 
 //        backBtn의 숨김처리 (메인화면에서만)
         backBtn.visibility = View.GONE
+
+//        알림버튼 보여주기 (메인화면에서만)
+        notiBtn.visibility = View.VISIBLE
     }
 
 //    서버에서, 메인화면에 보여줄 정보 받아오기
