@@ -1,13 +1,16 @@
 package com.nepplus.colosseum_20210903
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.nepplus.colosseum_20210903.adapters.ReplyAdapter
 import com.nepplus.colosseum_20210903.datas.ReplyData
 import com.nepplus.colosseum_20210903.datas.TopicData
+import com.nepplus.colosseum_20210903.utils.EditReplyActivity
 import com.nepplus.colosseum_20210903.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
 import org.json.JSONObject
@@ -27,6 +30,14 @@ class ViewTopicDetailActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        addReplyBtn.setOnClickListener {
+            val myIntent = Intent(mContext, EditReplyActivity:: class.java)
+            myIntent.putExtra("selecteSide",mTopicData.mySelectedSide)
+            startActivity(myIntent)
+
+
+        }
 
 //        첫번쨰 진영, 두번째 진영 투표버튼의 이벤트
     //    두개의 버튼이 하는일이 거의 동일하 => 코드를 한번만 짜서 , 두개의 버튼에 똑같이 달아보자
