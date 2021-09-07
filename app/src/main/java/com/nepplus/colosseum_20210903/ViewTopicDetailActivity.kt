@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.nepplus.colosseum_20210903.adapters.ReplyAdapter
@@ -32,6 +33,15 @@ class ViewTopicDetailActivity : BaseActivity() {
     override fun setupEvents() {
 
         addReplyBtn.setOnClickListener {
+
+//            투표를 해야만 댓글 작성화면으로 이동 시키자
+//            선택한 진영이 없다면, myIntent 관련 코드 실행x => validation 입력값 검증 작업
+
+            if (  mTopicData.mySelectedSide == null) {
+                Toast.makeText(mContext, "투표를 진행해야, 의견 등록 가능 합니다", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener //결과 지정 : 함수를 강제 종료 처리
+            }
+
             val myIntent = Intent(mContext, EditReplyActivity:: class.java)
             myIntent.putExtra("selecteSide",mTopicData.mySelectedSide)
             startActivity(myIntent)
