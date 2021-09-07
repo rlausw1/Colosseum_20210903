@@ -9,8 +9,10 @@ class ReplyData(
     var hateCount: Int,
     var myLike: Boolean,
     var myHate: Boolean,
-    var replyCount: Int
-) {
+    var replyCount: Int) {
+
+//    replyData 하위개념
+    lateinit var selectedSide : SideData
 
     constructor() : this(0, "", 0, 0, false, false, 0)
 
@@ -27,6 +29,11 @@ class ReplyData(
             replyData.myLike = json.getBoolean("my_like")
             replyData.myHate = json.getBoolean("my_dislike")
             replyData.replyCount = json.getInt("reply_count")
+
+//            선택진영 파싱 -> SideDat에 만둘어둔 파싱 기능 활용
+
+            val selectedSideObj = json.getJSONObject("selected_side")
+            replyData.selectedSide = SideData.getSideDataFromJson()
 
 
             return replyData
